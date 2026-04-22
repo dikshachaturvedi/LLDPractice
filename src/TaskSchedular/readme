@@ -1,0 +1,25 @@
+“Task scheduler” broadly 3 tarah ka ho sakta hai:
+
+1. CPU-style scheduler
+        tasks, cooldown, priority, time slices
+        LeetCode-type ya OS-flavored
+2. Job scheduler
+        run backup every day 2 AM
+        cron, retries, dependencies
+3. Distributed task scheduler
+        queue + workers + retries + dead-letter + monitoring
+        like Celery / Airflow-lite / Quartz-ish design
+
+        Entities:
+        Task, TaskRequest, Scheduler, TaskQueue, Worker, TaskHandler, TaskRepository, RetryPolicy
+
+        Inputs:
+        taskType, payload, scheduledTime, priority, retries, timeout, dependencies, recurrence
+
+        Core APIs:
+        submitTask()
+        cancelTask()
+        getTaskStatus()
+
+        Flow:
+        submit -> persist -> schedule -> dispatch -> execute -> update status -> retry/fail/success

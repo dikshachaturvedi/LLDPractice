@@ -34,3 +34,59 @@ public class splitwiseService {
     }
 
 }
+/*class SplitwiseService {
+    Map<String, User> users = new HashMap<>();
+    Map<String, Group> groups = new HashMap<>();
+    BalanceSheet balanceSheet = new BalanceSheet();
+    SettlementStrategy settlementStrategy;
+
+    public SplitwiseService(SettlementStrategy settlementStrategy) {
+        this.settlementStrategy = settlementStrategy;
+    }
+
+    public void addUser(User user) {
+        users.put(user.userId, user);
+    }
+
+    public void addGroup(Group group) {
+        groups.put(group.groupId, group);
+    }
+
+    public void addExpense(Expense expense) {
+        validateExpense(expense);
+        applyExpense(expense);
+    }
+
+
+    private void validateExpense(Expense expense) {
+        double total = 0.0;
+
+        for (Split split : expense.splits) {
+            total += split.amount;
+        }
+
+        if (Math.abs(total - expense.amount) > 0.001) {
+            throw new IllegalArgumentException("Invalid split total");
+        }
+    }
+
+    private void applyExpense(Expense expense) {
+        User payer = expense.paidBy;
+
+        for (Split split : expense.splits) {
+            User user = split.user;
+
+            if (user.userId.equals(payer.userId)) {
+                continue; // payer apna हिस्सा khud ko nahi dega
+            }
+
+            balanceSheet.updateBalance(payer, user, split.amount);
+        }
+    }
+        public List<Transaction> settleBalances() {
+        return settlementStrategy.settle(balanceSheet);
+    }
+
+}
+
+ */

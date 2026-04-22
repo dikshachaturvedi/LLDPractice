@@ -7,6 +7,8 @@ import Multithreading.*;
 import Splitwise.*;
 //import Splitwise.User;
 import CabBooking.User;
+import Tictactoe.Tictactoe;
+import Tictactoe.player;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,6 +77,19 @@ public class Main {
 //
 //        Logger logger = Logger.getLoggerInstance();
 //        logger.debug(new Message());
+
+        player  p = new player("Diksha" , 'x');
+        player  p2 = new player("saroj" , '0');
+        Tictactoe t = new Tictactoe(3 , p , p2);
+t.play(1,2);
+        t.play(0,2);
+        t.play(2,2);
+        t.play(0,0);
+        t.play(2,0);
+        t.play(2,1);
+        t.play(0,1);
+
+t.printBoard();
 
          FileSystem fs = new FileSystem();
          fs.mkdir("a/b/x");
