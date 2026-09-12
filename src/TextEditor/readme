@@ -1,0 +1,75 @@
+User presses A
+
+↓
+
+InsertTextCommand
+
+↓
+
+CommandManager.execute()
+
+↓
+
+Document.insert()
+
+↓
+
+Observer notified
+
+↓
+
+UI refreshed
+
+↓
+
+Undo Stack updated
+-----------------------------------------------------------------------------------------------
+Keyboard
+
+↓
+
+UI
+
+↓
+
+TextEditor.insert()
+
+↓
+
+InsertCommand
+
+↓
+
+CommandManager.execute()
+
+↓
+
+InsertCommand.execute()
+
+↓
+
+Document.insert()
+
+↓
+
+Find Page
+
+↓
+
+Find Paragraph
+
+↓
+
+Find TextRun
+
+↓
+
+Insert Character
+
+↓
+
+Notify observers
+
+↓
+
+Undo stack updated

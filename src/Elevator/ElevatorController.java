@@ -117,9 +117,6 @@ public ElevatorController( List<Elevatorr> el  ){
             }
         }
 
-
-
-
     }
 
 
