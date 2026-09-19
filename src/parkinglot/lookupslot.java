@@ -1,6 +1,8 @@
 package parkinglot;
 
+import java.util.List;
+
 public interface lookupslot {
 
-    void look();
+    parkingSpot look(List<parkingSpot> ps);
 }

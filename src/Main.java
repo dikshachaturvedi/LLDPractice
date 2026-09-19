@@ -17,6 +17,9 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello world!");
+
+
+
 //        List<Elevatorr> el = new ArrayList<>();
 //        List<Request> rel = new ArrayList<>();
 //        Elevatorr e1 = new Elevatorr(2 , state.idle , Direction.down ,999);
@@ -78,29 +81,29 @@ public class Main {
 //        Logger logger = Logger.getLoggerInstance();
 //        logger.debug(new Message());
 
-        player  p = new player("Diksha" , 'x');
-        player  p2 = new player("saroj" , '0');
-        Tictactoe t = new Tictactoe(3 , p , p2);
-t.play(1,2);
-        t.play(0,2);
-        t.play(2,2);
-        t.play(0,0);
-        t.play(2,0);
-        t.play(2,1);
-        t.play(0,1);
-
-t.printBoard();
-
-         FileSystem fs = new FileSystem();
-         fs.mkdir("a/b/x");
-        fs.mkdir("a/b/y");
-        fs.mkdir("a/b/p");
-         fs.addContentToFile("a/b/x/f" , "yoo");
-        String st =  fs.readContentToFile("a/b/x/f");
-        List<String> al = fs.ls("a/b");
-        for(int i = 0 ;i<al.size() ;i++){
-            System.out.println(al.get(i));
-        }
-        System.out.println(st);
+//        player  p = new player("Diksha" , 'x');
+//        player  p2 = new player("saroj" , '0');
+//        Tictactoe t = new Tictactoe(3 , p , p2);
+//t.play(1,2);
+//        t.play(0,2);
+//        t.play(2,2);
+//        t.play(0,0);
+//        t.play(2,0);
+//        t.play(2,1);
+//        t.play(0,1);
+//
+//t.printBoard();
+//
+//         FileSystem fs = new FileSystem();
+//         fs.mkdir("a/b/x");
+//        fs.mkdir("a/b/y");
+//        fs.mkdir("a/b/p");
+//         fs.addContentToFile("a/b/x/f" , "yoo");
+//        String st =  fs.readContentToFile("a/b/x/f");
+//        List<String> al = fs.ls("a/b");
+//        for(int i = 0 ;i<al.size() ;i++){
+//            System.out.println(al.get(i));
+//        }
+//        System.out.println(st);
     }
 }

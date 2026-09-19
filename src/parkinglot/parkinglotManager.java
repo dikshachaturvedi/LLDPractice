@@ -1,13 +1,15 @@
 package parkinglot;
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class parkinglotManager {
     private static parkinglotManager parkinglotManager;
-    vehicle v;
-    Ticket t;
+
     List<parkingLevel> pl;
-    exit exit;
+    AtomicInteger ticketId = new AtomicInteger(1000);
+    private final ConcurrentHashMap<String,Ticket > tmap = new ConcurrentHashMap<>();
     
     private parkinglotManager(){
         // Private constructor for singleton pattern
@@ -19,44 +21,48 @@ public class parkinglotManager {
         return parkinglotManager;
     }
     
-    public void initialize(vehicle v, List<parkingLevel> pl, Ticket t){
-        this.v = v;
-        this.t = t;
+    public void initialize(List<parkingLevel> pl){
+
         this.pl = pl;
     }
+
     public void addLevel(){
         if(pl != null)
             pl.add(new parkingLevel());
     }
 
-    public void parking(parkingLevel level){
-        if(pl != null){
-            for(parkingLevel lev : pl){
-                if(lev == level){
-                    lev.parking();
-                    break;
-                }
+    public Ticket parking(vehicle v){
+        for(parkingLevel pkl : pl){
+            if(pkl.parking(v)!=null){
+
+                String ttid = "TICK-" + ticketId.incrementAndGet();
+                Ticket t = new Ticket( ttid , v , pkl.parking(v).spotId );
+                tmap.put(ttid , t);
+                return t ;
             }
         }
+        return null;
     }
     
-    public void unparking(parkingLevel level, int spotId){
-        // unparklogic
-        // call exit();
-        if(pl != null){
-            for(parkingLevel lev : pl){
-                if(lev == level){
-                    lev.unparking(spotId);
-                    break;
+    public boolean unparking(Ticket t , int spotId ){
+
+        // Remove ticket atomically; returns null if ticketId wasn't found or already processed
+        Ticket ticket = tmap.remove(ticketId);
+        if (ticket == null) {
+            return false; // Invalid or already paid ticket
+        }
+
+        if (pl != null) {
+            for (parkingLevel level : pl) {
+                if (level.unparking(spotId)) {
+                    return true;
                 }
             }
         }
+
+        return false;
     }
 
-    public boolean isFree(){
-        // look if spotId is free
-        return true;
-    }
 
 
 }

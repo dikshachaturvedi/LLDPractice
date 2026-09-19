@@ -1,28 +1,51 @@
 package parkinglot;
 
-public class parkingLevel {
-    parkingSpot parkingSpot ;
-    vehicle vehicle ;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
-    public parkingLevel(parkingSpot parkingSpot , vehicle vehicle){
+public class parkingLevel {
+    List<parkingSpot> parkingSpot ;
+   // vehicle vehicle ; not here beacuse vehicle isntostrnngly relatedto parking level
+    lookupslot lookupslot ;
+    private AtomicInteger availableSpotsCount;
+    public parkingLevel(List<parkingSpot> parkingSpot ,  lookupslot lookupslot){
         this.parkingSpot = parkingSpot ;
-        this.vehicle = vehicle ;
+        this.lookupslot = lookupslot ;
+        this.availableSpotsCount = new AtomicInteger(parkingSpot.size());
     }
 
     public parkingLevel(){
     }
 
-    void  parking(){
-parkingSpot.park();
+    parkingSpot  parking(vehicle vehicle){
+
+        if(availableSpotsCount.get()<=0) return null ;
+        while(availableSpotsCount.get()>0){
+            parkingSpot ps = lookupslot.look(parkingSpot) ;
+            if(ps == null) return null ;
+            if(ps.park(vehicle)) {
+                availableSpotsCount.decrementAndGet();
+                return ps ;
+            }
+
+        }
+
+return null ;
+    }
+
+    boolean unparking(int spotId ){
+for(parkingSpot pss : parkingSpot){
+    if(pss.spotId == spotId){
+        pss.unpark();
+        return true;
+    }
+
+}
+return false ;
+
 
     }
-    void unparking(int x){
-        parkingSpot.unpark(x);
-    }
 
-    void isfreed(){
-        parkingSpot.isfree();
-    }
 
 
 }

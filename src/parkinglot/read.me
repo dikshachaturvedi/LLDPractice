@@ -6,3 +6,18 @@ multilevel ka dhyan rakhna h
 parkingloat me levele hai or level me parking spots h
 Scope → Entities → Responsibilities → Relationships
 → Patterns (if needed) → Concurrency → Flow
+
+Flow:
+An entry request claims a ParkingSpot, generates a Ticket with timestamp/spot metadata,
+and hands it off to Exit where a payment strategy calculates fees and frees the spot.
+
+
+
+
+. Feature Extensions (Coding & Architecture)
+A. Multiple Vehicle Types & Dynamic Spot AllocationThe Question: "Right now, any vehicle can park in any spot. How would you handle CAR, BIKE, and TRUCK, where a TRUCK cannot fit in a BIKE spot, but a CAR can park in a TRUCK spot if needed?"What to change:Define a SpotType enum (COMPACT, LARGE, MOTORCYCLE).Add a canFit(VehicleType vehicleType) boolean method to ParkingSpot or SpotType.Extend your LookupStrategy to filter spots based on compatible vehicle types before attempting tryPark(v).
+B. Dynamic Pricing StrategiesThe Question: "How would you calculate fees if pricing changes based on peak hours, vehicle type, or weekend rates?"What to change:Use the Strategy Pattern for fee computation (PricingStrategy interface).Implement concrete classes like HourlyPricingStrategy, VehicleTypePricingStrategy, and SurgePricingStrategy.Pass the strategy into the exit gate or payment module dynamically.
+C. Multi-Floor / Multi-Entrance Gate OperationsThe Question: "Suppose the parking lot has 3 separate entry gates and 2 exit gates. How do you assign the nearest spot relative to the specific gate where the car enters?"What to change:Pass an EntryGate object or gateId to manager.parkVehicle(v, gateId).Refactor LookupStrategy so that look(spots, entryGate) calculates distance or priority relative to that specific entrance.2. Hard Concurrency & Operational Edge CasesA. What if a driver loses their ticket?The Question: "How does your system charge a customer who lost their physical ticket or ID?"The Solution: Add a reverse lookup in ParkingLotManager. Since activeTickets maps ticketId -> Ticket, you can maintain a secondary ConcurrentHashMap<String, Ticket> mapping licensePlate -> Ticket to look up the active session by vehicle registration
+.B. Preventing Deadlocks and Thread StarvationThe Question: "If 500 threads simultaneously loop inside parkingLevel calling tryPark() and failing because another thread snagged the spot a microsecond earlier, how do you prevent high CPU usage?"The Solution:Replace list iterations with a ConcurrentLinkedQueue<ParkingSpot> per spot type. queue.poll() atomically fetches and removes an available spot in $O(1)$ time without loop contention.If no spots are available, immediately fail-fast instead of retrying endlessly.
+C. Reservations & Pre-bookingThe Question: "How would you add a feature allowing users to reserve a spot 2 hours in advance from a mobile app?"The Solution:Add a RESERVED state to ParkingSpot alongside isOccupied.Store a reservationExpiryTime. A background worker process or scheduled executor cleans up expired reservations if the vehicle fails to show up within 15 minutes.3. Distributed & System Design Escalations
+If the interviewer wants to shift the conversation from LLD to High-Level Design (HLD), expect these questions:Database Persistence: "What tables would you design to persist vehicles, spots, tickets, and payments in PostgreSQL or MySQL?"Distributed Locking: "If this code runs across 10 Web instances, how do you replace ReentrantLock?" (Answer: Redis with Redisson using SETNX, or Database Optimistic Locking with a version column).Display Boards: "How do you update digital display boards at the entrance showing 'Level 1: 5 Spots Left' in real time without lagging the API?" (Answer: Publish spot state change events to Kafka/RabbitMQ or WebSocket workers).
