@@ -6,7 +6,7 @@ public class parkingSpot {
       int spotId;
       boolean isfree ;
 
-    parkingSpot(vehicle vehicle , int spotId){
+    public parkingSpot(vehicle vehicle, int spotId){
         this.vehicle = vehicle;
         this.spotId =   spotId ;
     }

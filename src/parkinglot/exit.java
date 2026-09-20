@@ -15,7 +15,7 @@ public class exit {
         exittime = System.currentTimeMillis();
     }
 
-    int payt(){
+   public int payt(){
         plm.unparking(t , t.getSpotId() );
      return    pay.pay(  t.getEntrytime() , exittime );
 

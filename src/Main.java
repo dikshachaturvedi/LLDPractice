@@ -9,14 +9,37 @@ import Splitwise.*;
 import CabBooking.User;
 import Tictactoe.Tictactoe;
 import Tictactoe.player;
-
+import parkinglot.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         System.out.println("Hello world!");
+
+        vehicle v = new vehicle(vehicletype.bus , 123);
+        parkingSpot ps = new parkingSpot(v , 91);
+        List<parkingSpot> plv = new ArrayList<>();
+        plv.add(ps);
+        lookupslot ls = new NearestSpotlookup();
+        parkingLevel pl = new parkingLevel(plv , ls);
+        List<parkingLevel> plis = new ArrayList<>();
+        plis.add(pl);
+        parkinglotManager plm = parkinglotManager.getInstance();
+        plm.initialize(plis);
+        Ticket t = plm.parking(v) ;
+        Thread.sleep(3000);
+        payment p = new UPIpayment();
+        exit ex = new exit(v , plm , t, p );
+              int amt = ex.payt( );
+
+              System.out.println("amount paid for parking" + amt);
+
+
+
+
+
 
 
 
