@@ -1,6 +1,6 @@
 package MovieBooking;
 
-public enum seattype {
+public enum SeatType {
     premium ,
     economy
 }

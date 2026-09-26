@@ -1,6 +1,6 @@
 package MovieBooking;
 
-public enum bookingStatus {
+public enum BookingStatus {
     confirmed ,
     pending
 }

@@ -1,33 +1,31 @@
-.......................................................................package MovieBooking;
+package MovieBooking;
 
 import java.util.List;
 
 public class booking {
 
-    List<seat> seatList ;
-    int userId ;
+    List<ShowSeat> seatList ;
+     User userId ;
     int showId ;
    int bid ;
-   payment payment ;
-    bookingStatus bookingStatus;
+
+    BookingStatus bookingStatus;
 
     double amount;
 
-    public  booking(int bid , show show , List<seat> seatList , theater theater , location location ){
-        this.bid = bid ;
-        this.seatList = seatList ;
-    //    this.theater = theater ;
-       // this.show = show ;
-     //   this.location = location ;
+
+    public booking(List<ShowSeat> seatList, User userId, int showId, int bid, BookingStatus bookingStatus, double amount) {
+        this.seatList = seatList;
+        this.userId = userId;
+        this.showId = showId;
+        this.bid = bid;
+        this.bookingStatus = bookingStatus;
+        this.amount = amount;
     }
 
-    void booking(){
-        // choose location
-
-        // choose theater
-        //choose show
-        // book
-        //payment
+    public  void confirmBooking() {
+        bookingStatus = BookingStatus.confirmed ;
     }
+
 
 }

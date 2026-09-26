@@ -1,12 +1,14 @@
 package MovieBooking;
 
-public class movie {
-
+public class Movie {
     int mid ;
     String mname ;
+    int dur ;
 
-    public  movie(int mid , String mname){
+    public Movie(int mid , String mname , int dur){
         this.mid = mid ;
         this.mname = mname ;
+        this.dur = dur ;
     }
+
 }
