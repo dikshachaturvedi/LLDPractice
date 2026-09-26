@@ -3,19 +3,27 @@ package MovieBooking;
 import java.util.List;
 
 public class Theater {
-    List<Show> showList;
+    List<Screen> screenList;
     int tid ;
-    public Theater(List<Show> showList , int tid){
-        this.showList = showList ;
+    public Theater(List<Screen> showList , int tid){
+        this.screenList = showList ;
         this.tid = tid ;
     }
 
 
-    public List<Show> getShowList() {
-        return showList;
+    public List<Screen> getScreenList() {
+        return screenList;
     }
 
-    public void setShowList(List<Show> showList) {
-        this.showList = showList;
+    public void setScreenList(List<Screen> screenList) {
+        this.screenList = screenList;
+    }
+
+    public int getTid() {
+        return tid;
+    }
+
+    public void setTid(int tid) {
+        this.tid = tid;
     }
 }

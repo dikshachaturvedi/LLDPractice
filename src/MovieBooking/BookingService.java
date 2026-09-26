@@ -15,13 +15,13 @@ public class BookingService {
     }
 
 
-    public void createBooking(User user , List<ShowSeat> ss){
+    public void createBooking(User user , List<ShowSeat> ss , Show show){
         // lock
         boolean locked =   seatLockService.lockSeat(ss , user);
         if(!locked) return ;
 
         // create booking
-        booking newBooking = new booking(ss, user, 123, bookings.size() + 1, BookingStatus.pending,200 );
+        booking newBooking = new booking(ss, user, show.showId, bookings.size() + 1, BookingStatus.pending,show.price );
         // payment
         boolean done = payment.makePayment(user , 200);
         if(done){
@@ -35,9 +35,16 @@ public class BookingService {
         }
 
     }
-    public void cancelBooking(){
+    public void cancelBooking(booking b){
 
-
+        for(booking bk : bookings){
+            if(bk == b){
+                bk.bookingStatus = BookingStatus.cancelled ;
+                seatLockService.releaseLock(b.seatList , b.userId);
+                break;
+            }
+        }
+bookings.remove(b);
     }
     public void getAvailbleSeats(){
 

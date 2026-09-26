@@ -11,4 +11,20 @@ public class Screen {
   this.scid = scid;
   this.showSeatMap = showSeatMap;
  }
+
+ public int getScid() {
+  return scid;
+ }
+
+ public void setScid(int scid) {
+  this.scid = scid;
+ }
+
+ public Map<Show, List<ShowSeat>> getShowSeatMap() {
+  return showSeatMap;
+ }
+
+ public void setShowSeatMap(Map<Show, List<ShowSeat>> showSeatMap) {
+  this.showSeatMap = showSeatMap;
+ }
 }

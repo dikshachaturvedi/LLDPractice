@@ -1,0 +1,31 @@
+Admin
+ ↓
+addMovie()
+addTheater()
+addShow()
+
+User
+ ↓
+searchMovies()
+ ↓
+getShows()
+ ↓
+getAvailableSeats()
+ ↓
+createBooking()
+ ↓
+lockSeats()
+ ↓
+payment()
+ ↓
+confirm()
+ ↓
+BOOKED
+
+Cancellation
+ ↓
+cancelBooking()
+ ↓
+CANCELLED
+ ↓
+releaseSeats()

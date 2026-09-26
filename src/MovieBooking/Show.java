@@ -4,6 +4,7 @@ public class Show {
     Movie movie;
   int showId ;
   Screen screen ;
+  int price ;
 
     public Show(Movie movie , int showId){
         this.movie = movie ;
