@@ -5,8 +5,6 @@ public class atmDetails {
     int amount ;
     CardDetails cardDetails ;
     Bank bank ;
-
-
     AtmState atmState ;
 
     public atmDetails(String atmId, int amount, Bank bank) {

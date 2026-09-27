@@ -4,6 +4,10 @@ import FileSystem.FileSystem;
 import LoggingFrameWork.Logger;
 import LoggingFrameWork.Message;
 import Multithreading.*;
+import NotificationSystem.Email;
+import NotificationSystem.Notification;
+import NotificationSystem.NotificationChannel;
+import NotificationSystem.NotificationPublisher;
 import Splitwise.*;
 //import Splitwise.User;
 import CabBooking.User;
@@ -37,8 +41,11 @@ public class Main {
               System.out.println("amount paid for parking" + amt);
 
 
-
-
+         Notification n = new Notification("uuu");
+        NotificationChannel nc = new Email();
+        NotificationPublisher ncp = new NotificationPublisher();
+        ncp.subscribe(nc);
+        ncp.notifyObserver();
 
 
 
