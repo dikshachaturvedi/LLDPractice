@@ -1,0 +1,46 @@
+PaymentRequest
+      ↓
+PaymentService
+      ↓
+Idempotency Check
+      ↓
+Create Transaction
+      ↓
+GatewayFactory
+      ↓
+PaymentGateway
+   ↙         ↘
+ UPI        CARD
+      ↓
+Update Transaction
+      ↓
+SUCCESS / FAILED
+*********************************************************************************************
+
+Idempotency duplicate click ko nahi rokta, duplicate processing ko rokta hai.
+
+*********************************************************************************************************************
+
+Amount = ₹500
+PaymentType = UPI
+
+        ↓ clicks "Pay"
+
+PaymentRequest
+requestId = REQ123
+amount = 500
+type = UPI
+        ↓
+PaymentService
+        ↓
+Idempotency check
+        ↓
+Transaction create
+TXN789
+status = INITIATED
+        ↓
+UPI Gateway
+        ↓
+PROCESSING
+        ↓
+SUCCESS
